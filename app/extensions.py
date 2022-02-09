@@ -8,7 +8,6 @@ from flask_marshmallow import Marshmallow
 
 db = SQLAlchemy()
 
-#bcrypt = Bcrypt()
 migrate = Migrate()
 cors = CORS()
 

@@ -11,6 +11,9 @@ from app import create_app, db
 from app.models.user import User
 from app.models.restaurant import Restaurant
 from app.models.menu import Menu
+from app.models.product import Product
+from app.models.order import Order
+from app.models.order_detail import OrderDetail
 
 app = create_app(os.getenv("FLASK_CONFIG") or "default")
 
@@ -18,7 +21,8 @@ migrate = Migrate(app, db)
 
 @app.shell_context_processor
 def make_shell_context():
-    return dict(db=db, User=User, Restaurant=Restaurant, Menu=Menu)
+    """Make database operations with shell, without import db"""
+    return dict(db=db, User=User, Restaurant=Restaurant, Menu=Menu, Product=Product, Order=Order, OrderDetail=OrderDetail)
 
 @app.cli.command()
 @click.argument('test_names', nargs=-1)

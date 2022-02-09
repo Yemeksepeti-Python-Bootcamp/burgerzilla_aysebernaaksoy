@@ -29,7 +29,7 @@ def create_app(config_name):
 
     app.register_blueprint(api_bp, url_prefix="/api")
 
-
+    # If app.debug is False you can get logs 
     if not app.debug:
         if not os.path.exists('logs'):
             os.mkdir('logs')
@@ -52,6 +52,5 @@ def register_extensions(app):
     db.init_app(app)
     ma.init_app(app)
     jwt.init_app(app)
-    #bcrypt.init_app(app)
     cors.init_app(app)
 

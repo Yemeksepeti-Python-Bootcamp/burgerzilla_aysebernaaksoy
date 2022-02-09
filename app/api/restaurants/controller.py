@@ -9,6 +9,7 @@ api = RestaurantDto.api
 restaurant=RestaurantDto.restaurant
 restaurant_resp=RestaurantDto.restaurant_resp
 restaurant_list_resp=RestaurantDto.restaurant_list_resp
+menu=RestaurantDto.menu
 
 @api.route('/<int:restaurant_id>')
 class Restaurant(Resource):
@@ -54,3 +55,22 @@ class RestaurantList(Resource):
         Create a new restaurant"""
         data = request.get_json()
         return RestaurantService.insert_restaurant(user_id,data)
+
+@api.route("/menu/<int:restaurant_id>")
+# TODO:Giren kullanıcının id si restaurant id si ise o zaman işlemler yapılsın
+class MenuList(Resource):
+    @api.doc("Get all menu of a specific restaurant",responses={200:"Success",500:"Internal Server Error"})
+    @jwt_required()
+    def get(self,restaurant_id):
+        """
+        Get all menu of a specific restaurant"""
+        return RestaurantService.get_menu(restaurant_id)
+
+    @api.doc("Create a new menu",responses={200:"Success",500:"Internal Server Error"})
+    @api.expect(restaurant)
+    @jwt_required()
+    def post(self,restaurant_id):
+        """
+        Create a new restaurant"""
+        data = request.get_json()
+        return RestaurantService.insert_menu(restaurant_id,data)

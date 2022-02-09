@@ -11,7 +11,7 @@ class Config:
 
     # JWT Extended config
     JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY", os.urandom(24))
-    ## Set the token to expire every week
+    # Set the token to expire every week
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=7)
 
 

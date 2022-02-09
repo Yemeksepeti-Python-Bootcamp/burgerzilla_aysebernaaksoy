@@ -16,4 +16,19 @@ class RestaurantSchema(ma.Schema):
 class MenuSchema(ma.Schema):
     class Meta:
         # Fields to expose, add more if needed.
-        fields = ("id", "name", "detailed_info", "price", "image_url")  
+        fields = ("id", "name")
+
+class ProductSchema(ma.Schema):
+     class Meta:
+        # Fields to expose, add more if needed.
+        fields = ("id", "name", "detailed_info", "price", "image_url", "menu_id")
+
+class OrderSchema(ma.Schema):
+     class Meta:
+        # Fields to expose, add more if needed.
+        fields = ("id", "no", "status", "restaurant_id")
+
+class OrderDetailSchema(ma.Schema):
+     class Meta:
+        # Fields to expose, add more if needed.
+        fields = ("id", "quantity", "order_id", "product_id")
