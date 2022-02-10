@@ -19,14 +19,26 @@ class RestaurantDto:
         'message':fields.String,
         'restaurants':fields.List(fields.Nested(restaurant))})
 
-    menu_api = Namespace('menus', description='menus related operations')
+    menu_api = Namespace('menu', description='menus related operations')
     menu = menu_api.model('menu', {
+        'id':fields.Integer,
+        'name':fields.String,
+        'restaurant_id':fields.Integer,
+    })
+
+    prodcut_api = Namespace('products', description='products related operations')
+    product = api.model('product', {
         'id':fields.Integer,
         'name':fields.String,
         'detailed_info':fields.String,
         'price':fields.String,
         'image_url':fields.String,
-        'restaurant_id':fields.Integer,
+        'menu_if':fields.Integer
+    })
+    product_resp = api.model('product_resp', {
+        'status':fields.Boolean,
+        'message':fields.String,
+        'product':fields.Nested(product)
     })
 
     # restaurant_resp = api.model('restaurant_resp', {

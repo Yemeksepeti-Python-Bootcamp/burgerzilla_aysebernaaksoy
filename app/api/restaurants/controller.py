@@ -10,6 +10,8 @@ restaurant=RestaurantDto.restaurant
 restaurant_resp=RestaurantDto.restaurant_resp
 restaurant_list_resp=RestaurantDto.restaurant_list_resp
 menu=RestaurantDto.menu
+product=RestaurantDto.product
+product_resp=RestaurantDto.product_resp
 
 @api.route('/<int:restaurant_id>')
 class Restaurant(Resource):
@@ -56,21 +58,76 @@ class RestaurantList(Resource):
         data = request.get_json()
         return RestaurantService.insert_restaurant(user_id,data)
 
-@api.route("/menu/<int:restaurant_id>")
+@api.route("/menu")
 # TODO:Giren kullanıcının id si restaurant id si ise o zaman işlemler yapılsın
 class MenuList(Resource):
     @api.doc("Get all menu of a specific restaurant",responses={200:"Success",500:"Internal Server Error"})
     @jwt_required()
-    def get(self,restaurant_id):
+    def get(self):
         """
         Get all menu of a specific restaurant"""
-        return RestaurantService.get_menu(restaurant_id)
+        return RestaurantService.get_menu()
 
     @api.doc("Create a new menu",responses={200:"Success",500:"Internal Server Error"})
     @api.expect(restaurant)
     @jwt_required()
-    def post(self,restaurant_id):
+    def post(self):
         """
         Create a new restaurant"""
         data = request.get_json()
-        return RestaurantService.insert_menu(restaurant_id,data)
+        return RestaurantService.insert_menu(data)
+
+@api.route('/menu/<int:menu_id>')
+class Menu(Resource):
+    @api.doc("Update a menu for restaurant",responses={200:"Success"})
+    @api.expect(menu)
+    @jwt_required()
+    def put(self, menu_id):
+        """ Update a menu"""
+        data = request.get_json()
+        return RestaurantService.update_menu(menu_id,data)
+
+@api.route("/menu/<int:menu_id>/product")
+# TODO:Giren kullanıcının id si restaurant id si ise o zaman işlemler yapılsın
+class ProductList(Resource):
+    @api.doc("Get all products of a specific menu",responses={200:"Success",500:"Internal Server Error"})
+    @jwt_required()
+    def get(self, menu_id):
+        """
+        Get all products of a specific menu"""
+        return RestaurantService.get_products(menu_id)
+
+    @api.doc("Create a new product",responses={200:"Success",500:"Internal Server Error"})
+    @api.expect(product)
+    @jwt_required()
+    def post(self, menu_id):
+        """
+        Create a new product"""
+        data = request.get_json()
+        return RestaurantService.insert_product(data,menu_id)
+
+@api.route('/product/<int:product_id>')
+class Product(Resource):
+    @api.doc('get specific product',products={
+        200:('Success',product_resp),
+        400:'Invalid product ID',
+    })
+    @jwt_required()
+    def get(self,product_id):
+        """ get specific product"""
+        return RestaurantService.get_product(product_id)
+
+    @api.doc("Update a specific product",responses={200:"Success"})
+    @api.expect(product)
+    @jwt_required()
+    def put(self,product_id):
+        """ Update a specific restaurant"""
+        data = request.get_json()
+        return RestaurantService.update_product(product_id,data)
+
+    @api.doc("Delete a specific product",responses={
+        200:"Success"})
+    @jwt_required()
+    def delete(self,product_id):
+        """ Delete a specific product"""
+        return RestaurantService.delete_product(product_id)

@@ -1,10 +1,16 @@
+from itertools import product
 from flask import current_app
 from app.models.schemas import RestaurantSchema
+from app.models.schemas import MenuSchema
+from app.models.schemas import ProductSchema
+from app.models.schemas import OrderSchema
 
 from app.utils import err_resp,internal_err_resp,message
 from flask_jwt_extended import get_jwt_identity
 from app.models.restaurant import Restaurant
 from app.models.menu import Menu
+from app.models.product import Product
+from app.models.order import Order
 from app import db
 
 class RestaurantService:
@@ -83,10 +89,11 @@ class RestaurantService:
             return internal_err_resp()
     
     @staticmethod
-    def get_menu(restaurant_id):
+    def get_menu():
         """
         get a menu by id"""
-        if not (menu := Menu.query.filter_by(restaurant_id=restaurant_id)):
+        current_user = get_jwt_identity()
+        if not (menu := Menu.query.get(current_user)):
             return err_resp(message="menu not found",status=400)
         from .utils import load_menu_data
         try:
@@ -99,15 +106,102 @@ class RestaurantService:
             return internal_err_resp()
 
     @staticmethod
-    def insert_menu(restaurant_id,menu_data):
+    def insert_menu(menu_data):
         """
         Insert a new menu"""
         try:
-            # current_user = get_jwt_identity()
-            menu = Menu(name=menu_data["name"],detailed_info=menu_data["detailed_info"],price=menu_data["price"],image_url=menu_data["image_url"],restaurant_id=restaurant_id)
+            current_user = get_jwt_identity()
+            menu = Menu(name=menu_data["name"],restaurant_id=current_user)
             db.session.add(menu)
             db.session.commit()
             return message(True,"menu created successfully")
+        except Exception as e:
+            current_app.logger.error(e)
+            return internal_err_resp()
+
+    @staticmethod
+    def update_menu(menu_id,menu_data):
+        """
+        update a menu"""
+        if not (menu:=Menu.query.get(menu_id)):
+            return err_resp(message="menu not found",status=400)
+        try:
+            Menu.query.filter_by(id=menu_id).update(menu_data)
+            db.session.commit()
+            return message(True,"menu updated successfully")
+        except Exception as e:
+            current_app.logger.error(e)
+            return internal_err_resp()
+
+    @staticmethod
+    def get_products(menu_id):
+        """
+        Get all products of a specific menu"""
+        if not(products := Product.query.filter_by(menu_id=menu_id)):
+            return err_resp(message="restaurants not found",status=400)
+        from .utils import load_product_data
+        try:
+            products_data = [load_product_data(product) for product in products]
+            resp=message(True,"restaurants loaded successfully")
+            resp["products"]=products_data
+            return resp,200
+        except Exception as e:
+            current_app.logger.error(e)
+            return internal_err_resp()
+
+    @staticmethod
+    def get_product(product_id):
+        """
+        get a product by id"""
+        if not (product := Product.query.get(product_id)):
+            return err_resp(message="product not found",status=400)
+        from .utils import load_product_data
+        try:
+            product_data = load_product_data(product)
+            resp=message(True,"product loaded successfully")
+            resp["product"]=product_data
+            return resp,200
+        except Exception as e:
+            current_app.logger.error(e)
+            return internal_err_resp()
+
+    @staticmethod
+    def insert_product(product_data, menu_id):
+        """
+        Insert a new product"""
+        try:
+            product = Product(name=product_data["name"],detailed_info=product_data["detailed_info"],price=product_data["price"],image_url=product_data["image_url"],menu_id=menu_id)
+            db.session.add(product)
+            db.session.commit()
+            return message(True,"product created successfully")
+        except Exception as e:
+            current_app.logger.error(e)
+            return internal_err_resp()
+
+    @staticmethod
+    def update_product(product_id,product_data):
+        """
+        Update a product"""
+        if not (product:=Product.query.get(product_id)):
+            return err_resp(message="product not found",status=400)
+        try:
+            Product.query.filter_by(id=product_id).update(product_data)
+            db.session.commit()
+            return message(True,"product updated successfully")
+        except Exception as e:
+            current_app.logger.error(e)
+            return internal_err_resp()
+
+    @staticmethod
+    def delete_product(product_id):
+        """
+        Delete a product by id"""
+        if not (product := Product.query.get(product_id)):
+            return err_resp(message="product not found",status=400)
+        try:
+            db.session.delete(product)
+            db.session.commit()
+            return message(True,"product deleted successfully")
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()
