@@ -1,8 +1,8 @@
 from flask_restx import Namespace,fields
 
-class OrderDto:
-    api = Namespace('orders', description='orders related operations')
-    order = api.model('order', {
+class CustomerDto:
+    api = Namespace('customers', description='orders related operations')
+    customer = api.model('customer', {
         'id':fields.Integer,
         'no':fields.String,
         'restaurant_id':fields.Integer,
@@ -11,16 +11,16 @@ class OrderDto:
         'status':fields.String
     })
 
-    order_resp = api.model('order_resp', {
+    customer_resp = api.model('customer_resp', {
         'status':fields.Boolean,
         'message':fields.String,
-        'order':fields.Nested(order)
+        'customer':fields.Nested(customer)
     })
 
-    order_list_resp = api.model('order_list_resp', {
+    customer_list_resp = api.model('customer_list_resp', {
         'status':fields.Boolean,
         'message':fields.String,
-        'orders':fields.List(fields.Nested(order))})
+        'customers':fields.List(fields.Nested(customer))})
 
     # menu_api = Namespace('menus', description='menus related operations')
     # menu = menu_api.model('menu', {

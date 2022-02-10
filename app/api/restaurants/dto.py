@@ -41,13 +41,14 @@ class RestaurantDto:
         'product':fields.Nested(product)
     })
 
-    # restaurant_resp = api.model('restaurant_resp', {
-    #     'status':fields.Boolean,
-    #     'message':fields.String,
-    #     'restaurant':fields.Nested(restaurant)
-    # })
+    order = api.model('order', {
+        'id':fields.Integer,
+        'no':fields.String,
+        'status':fields.String,
+        'items':fields.String
+    })
 
-    # restaurant_list_resp = api.model('restaurant_list_resp', {
-    #     'status':fields.Boolean,
-    #     'message':fields.String,
-    #     'restaurants':fields.List(fields.Nested(restaurant))})
+    order_resp = api.model('order_resp', {
+        'status':fields.Boolean,
+        'message':fields.String,
+        'orders':fields.List(fields.Nested(order))})

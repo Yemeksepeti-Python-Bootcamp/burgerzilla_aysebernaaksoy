@@ -1,4 +1,3 @@
-from itertools import product
 from flask import current_app
 from app.models.schemas import RestaurantSchema
 from app.models.schemas import MenuSchema

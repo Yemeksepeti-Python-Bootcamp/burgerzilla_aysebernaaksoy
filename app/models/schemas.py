@@ -2,7 +2,8 @@ from app import ma
 from .user import User
 from .restaurant import Restaurant
 from .menu import Menu
-
+from .order import Order
+from .order_detail import OrderDetail
 class UserSchema(ma.Schema):
     class Meta:
         # Fields to expose
@@ -19,16 +20,16 @@ class MenuSchema(ma.Schema):
         fields = ("id", "name")
 
 class ProductSchema(ma.Schema):
-     class Meta:
+    class Meta:
         # Fields to expose, add more if needed.
         fields = ("id", "name", "detailed_info", "price", "image_url", "menu_id")
 
 class OrderSchema(ma.Schema):
-     class Meta:
+    class Meta:
         # Fields to expose, add more if needed.
         fields = ("id", "no", "status", "restaurant_id")
 
 class OrderDetailSchema(ma.Schema):
-     class Meta:
+    class Meta:
         # Fields to expose, add more if needed.
         fields = ("id", "quantity", "order_id", "product_id")
