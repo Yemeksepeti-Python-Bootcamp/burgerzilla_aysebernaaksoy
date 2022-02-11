@@ -18,7 +18,7 @@ class CustomerService:
         get all orders"""
         current_user = get_jwt_identity()
         if not (orders := Order.query.filter_by(user_id=current_user)):
-            return err_resp(message=Texts.ORDER_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.ORDER_NOT_FOUND_ERR,reason='',code=400)
         from .utils import load_order_data
         try:
             order_data = [load_order_data(order) for order in orders]
@@ -34,7 +34,7 @@ class CustomerService:
         """
         Delete a order by id"""
         if not (order := Order.query.get(order_id)):
-            return err_resp(message=Texts.ORDER_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.ORDER_NOT_FOUND_ERR,reason='',code=400)
         try:
             # Deleted with order detail
             db.session.delete(order)
@@ -71,7 +71,7 @@ class CustomerService:
         """
         Get an order by id"""
         if not (order := Order.query.get(order_id)):
-            return err_resp(message=Texts.ORDER_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.ORDER_NOT_FOUND_ERR,reason='',code=400)
         from .utils import load_order_data, load_order_detail_data
         try:
             order_detail = order.items
@@ -93,7 +93,7 @@ class CustomerService:
         """
         update an order"""
         if not (order:=Order.query.get(order_id)):
-            return err_resp(message=Texts.ORDER_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.ORDER_NOT_FOUND_ERR,reason='',code=400)
         try:
             Order.query.filter_by(id=order_id).update(order_data)
             db.session.commit()

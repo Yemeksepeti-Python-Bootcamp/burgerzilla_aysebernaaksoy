@@ -45,7 +45,7 @@ Sunucuyu çalıştırın
 Testleri çalıştırın
 
 ```bash
-    flask run tests
+    flask test
 ```
 ## Veri tabanı şeması
 

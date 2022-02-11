@@ -47,21 +47,21 @@ class AuthService:
         elif User.query.filter_by(username=username).first():
             return err_resp('Bu kullanıcı adı kullanılıyor',"username_409",409)
         try:
-            # kullanıcı oluştu
+            # User created
             user = User(email=email,
                             username=username,
                             name=name,
                             password=password,
                             joined_date=datetime.utcnow())
-            db.session.add(user) # kullanıcı veri tabanına ekleniyor
-            db.session.commit() # veri tabanına eklenen kullanıcı kaydediliyor
+            db.session.add(user)
+            db.session.commit()
 
-            user_info = user_schema.dump(user) # user modeli json formatına dönüştürülüyor
-            access_token = create_access_token(identity=user.id) # token oluşturuluyor
-            resp = message('True', 'Kayıt başarılı') # mesaj oluşturuluyor
-            resp['access_token'] = access_token # token ekleniyor
-            resp['user'] = user_info # user bilgisi ekleniyor
-            return resp,200 # 200 dönüyor
+            user_info = user_schema.dump(user)
+            access_token = create_access_token(identity=user.id)
+            resp = message('True', 'Kayıt başarılı')
+            resp['access_token'] = access_token
+            resp['user'] = user_info
+            return resp,200
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()

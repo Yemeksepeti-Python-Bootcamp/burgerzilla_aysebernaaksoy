@@ -19,7 +19,7 @@ class RestaurantService:
         """
         Get a restaurant by id"""
         if not (restaurant := Restaurant.query.get(restaurant_id)):
-            return err_resp(message=Texts.RESTAURANT_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.RESTAURANT_NOT_FOUND_ERR,reason='',code=400)
         from .utils import load_restaurant_data
         try:
             restaurant_data = load_restaurant_data(restaurant)
@@ -35,7 +35,7 @@ class RestaurantService:
         """
         Delete a restaurant by id"""
         if not (restaurant := Restaurant.query.get(restaurant_id)):
-            return err_resp(message=Texts.RESTAURANT_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.RESTAURANT_NOT_FOUND_ERR,reason='',code=400)
         try:
             db.session.delete(restaurant)
             db.session.commit()
@@ -63,7 +63,7 @@ class RestaurantService:
         """
         update a restaurant"""
         if not (restaurant:=Restaurant.query.get(restaurant_id)):
-            return err_resp(message=Texts.RESTAURANT_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.RESTAURANT_NOT_FOUND_ERR,reason='',code=400)
         try:
             Restaurant.query.filter_by(id=restaurant_id).update(restaurant_data)
             db.session.commit()
@@ -77,7 +77,7 @@ class RestaurantService:
         """
         Get all restaurants of a specific user"""
         if not(restaurants := Restaurant.query.filter_by(user_id=user_id)):
-            return err_resp(message=Texts.RESTAURANT_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.RESTAURANT_NOT_FOUND_ERR,reason='',code=400)
         from .utils import load_restaurant_data
         try:
             restaurants_data = [load_restaurant_data(restaurant) for restaurant in restaurants]
@@ -94,7 +94,7 @@ class RestaurantService:
         get a menu by id"""
         current_user = get_jwt_identity()
         if not (menu := Menu.query.get(current_user)):
-            return err_resp(message=Texts.MENU_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.RESTAURANT_NOT_FOUND_ERR,reason='',code=400)
         from .utils import load_menu_data
         try:
             menu_data = load_menu_data(menu)
@@ -124,7 +124,7 @@ class RestaurantService:
         """
         update a menu"""
         if not (menu:=Menu.query.get(menu_id)):
-            return err_resp(message=Texts.MENU_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.RESTAURANT_NOT_FOUND_ERR,reason='',code=400)
         try:
             Menu.query.filter_by(id=menu_id).update(menu_data)
             db.session.commit()
@@ -138,7 +138,7 @@ class RestaurantService:
         """
         Get all products of a specific menu"""
         if not(products := Product.query.filter_by(menu_id=menu_id)):
-            return err_resp(message=Texts.PRODUCT_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.PRODUCT_NOT_FOUND_ERR,reason='',code=400)
         from .utils import load_product_data
         try:
             products_data = [load_product_data(product) for product in products]
@@ -154,7 +154,7 @@ class RestaurantService:
         """
         Get a product by id"""
         if not (product := Product.query.get(product_id)):
-            return err_resp(message=Texts.PRODUCT_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.PRODUCT_NOT_FOUND_ERR,reason='',code=400)
         from .utils import load_product_data
         try:
             product_data = load_product_data(product)
@@ -183,7 +183,7 @@ class RestaurantService:
         """
         Update a product"""
         if not (product:=Product.query.get(product_id)):
-            return err_resp(message=Texts.PRODUCT_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.PRODUCT_NOT_FOUND_ERR,reason='',code=400)
         try:
             Product.query.filter_by(id=product_id).update(product_data)
             db.session.commit()
@@ -197,7 +197,7 @@ class RestaurantService:
         """
         Delete a product by id"""
         if not (product := Product.query.get(product_id)):
-            return err_resp(message=Texts.PRODUCT_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.PRODUCT_NOT_FOUND_ERR,reason='',code=400)
         try:
             db.session.delete(product)
             db.session.commit()
@@ -214,7 +214,7 @@ class RestaurantService:
         current_user = get_jwt_identity()
 
         if not(orders := Order.query.filter_by(user_id=current_user)):
-            return err_resp(message=Texts.ORDER_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.ORDER_NOT_FOUND_ERR,reason='',code=400)
         from .utils import load_order_data
         try:
             orders_data = [load_order_data(order) for order in orders]
@@ -230,7 +230,7 @@ class RestaurantService:
         """
         Delete a order by id"""
         if not (order := Order.query.get(order_id)):
-            return err_resp(message=Texts.ORDER_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.ORDER_NOT_FOUND_ERR,reason='',code=400)
         try:
             # Deleted with order detail
             db.session.delete(order)
@@ -245,7 +245,7 @@ class RestaurantService:
         """
         Get an order by id"""
         if not (order := Order.query.get(order_id)):
-            return err_resp(message=Texts.ORDER_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.ORDER_NOT_FOUND_ERR,reason='',code=400)
         from .utils import load_order_data, load_order_detail_data
         try:
             order_detail = order.items
@@ -265,7 +265,7 @@ class RestaurantService:
         """
         update an order"""
         if not (order:=Order.query.get(order_id)):
-            return err_resp(message=Texts.ORDER_NOT_FOUND_ERR,status=400)
+            return err_resp(msg=Texts.ORDER_NOT_FOUND_ERR,reason='',code=400)
         try:
             Order.query.filter_by(id=order_id).update(order_data)
             db.session.commit()
