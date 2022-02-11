@@ -9,57 +9,57 @@ from app.models.restaurant import Restaurant
 
 from utils.base import BaseTestCase
 
-def get_restaurant_data(self,accestoken,restaurant_id):
-    return self.client.get(
-        f"/api/restaurant/{restaurant_id}",
-        headers={"Authorization": "Bearer " + accestoken},
-    )
+# def get_restaurant_data(self,accestoken,restaurant_id):
+#     return self.client.get(
+#         f"/api/restaurant/{restaurant_id}",
+#         headers={"Authorization": "Bearer " + accestoken},
+#     )
 
-def get_restaurants_data(self,accestoken):
-    return self.client.get(
-        f"/api/restaurant",
-        headers={"Authorization": "Bearer " + accestoken},
-    )
+# def get_restaurants_data(self,accestoken):
+#     return self.client.get(
+#         f"/api/restaurant",
+#         headers={"Authorization": "Bearer " + accestoken},
+#     )
 
-def post_restaurant_data(self,accestoken,restaurant_data,user_id):
-    return self.client.post(
-        f"/api/restaurants/user/{user_id}",
-        data=json.dumps(restaurant_data),
-        content_type="application/json",
-        headers={"Authorization": "Bearer " + accestoken},
-    )
+# def post_restaurant_data(self,accestoken,restaurant_data,user_id):
+#     return self.client.post(
+#         f"/api/restaurants/user/{user_id}",
+#         data=json.dumps(restaurant_data),
+#         content_type="application/json",
+#         headers={"Authorization": "Bearer " + accestoken},
+#     )
 
-def put_restaurant_data(self,accesstoken,restaurant_data,restaurant_id,user_id):
-    return self.client.put(
-        f"/api/restaurants/{restaurant_id}/user/{user_id}",
-        data=json.dumps(restaurant_data),
-        content_type="application/json",
-        headers={"Authorization": "Bearer " + accesstoken},
-    )
+# def put_restaurant_data(self,accesstoken,restaurant_data,restaurant_id,user_id):
+#     return self.client.put(
+#         f"/api/restaurants/{restaurant_id}/user/{user_id}",
+#         data=json.dumps(restaurant_data),
+#         content_type="application/json",
+#         headers={"Authorization": "Bearer " + accesstoken},
+#     )
 
-def delete_restaurant_data(self,accesstoken,restaurant_id):
-    return self.client.delete(
-        f"/api/restaurants/{restaurant_id}",
-        headers={"Authorization": "Bearer " + accesstoken},
-    )
+# def delete_restaurant_data(self,accesstoken,restaurant_id):
+#     return self.client.delete(
+#         f"/api/restaurants/{restaurant_id}",
+#         headers={"Authorization": "Bearer " + accesstoken},
+#     )
 
-class TestRestaurantBlueprint(BaseTestCase):
-    def test_restaurant_get(self):
-        """
-        Test for getting a restaurant
-        """
-        d = Restaurant(name='test1',user_id=1)
-        db.session.add(d)
-        db.session.commit()
+# class TestRestaurantBlueprint(BaseTestCase):
+#     def test_restaurant_get(self):
+#         """
+#         Test for getting a restaurant
+#         """
+#         d = Restaurant(name='test1',user_id=1)
+#         db.session.add(d)
+#         db.session.commit()
         
-        access_token = create_access_token(identity=1)
+#         access_token = create_access_token(identity=1)
 
-        restaurant_resp = get_restaurant_data(self,access_token,d.id)
-        restaurant_data = json.loads(restaurant_resp.data.decode())
+#         restaurant_resp = get_restaurant_data(self,access_token,d.id)
+#         restaurant_data = json.loads(restaurant_resp.data.decode())
 
-        self.assertTrue(restaurant_resp.status_code == 200)
-        self.assertTrue(restaurant_data["restaurant"]['name'] == 'test1')
-        self.assertTrue(restaurant_data["restaurant"]['user_id'] == 1)
+#         self.assertTrue(restaurant_resp.status_code == 200)
+#         self.assertTrue(restaurant_data["restaurant"]['name'] == 'test1')
+#         self.assertTrue(restaurant_data["restaurant"]['user_id'] == 1)
 
-        data_404_resp = get_restaurant_data(self,access_token,100)
-        self.assertEquals(data_404_resp.status_code, 400)
+#         data_404_resp = get_restaurant_data(self,access_token,100)
+#         self.assertEquals(data_404_resp.status_code, 400)

@@ -11,7 +11,7 @@ from config import config_by_name
 
 import os
 import logging
-from logging.handlers import SMTPHandler, RotatingFileHandler
+from logging.handlers import RotatingFileHandler
 
 def create_app(config_name):
     app = Flask(__name__)
