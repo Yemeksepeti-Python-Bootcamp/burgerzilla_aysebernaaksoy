@@ -1,9 +1,59 @@
-# burgerzilla
+# BurgerZilla
+
+YemekSepeti Python Web Development Bootcamp Final Projesi
+
+## API Kullanımı
+
+Postman collection ile ya da 
+auth servisleri için localhost:5000
+restaurant ve customer servisleri için localhost:5000/api ile swagger dökümanlarına erişilebilir.
+
+  
+## Bilgisayarınızda Çalıştırın
+
+Projeyi klonlayın
+
+```bash
+    git clone https://github.com/aysberna/burgerzilla.git
+```
+
+Proje dizinine gidin
+
+```bash
+    cd burgerzilla
+```
+
+Virtual environment oluşturun
+
+```bash
+    python -m venv env
+    . venv/bin/activate # Windows için
+    source env/bin/activate # Linux-MacOS için
+```
+Gerekli paketleri yükleyin
+
+```bash
+    pip install -r requirements.txt
+```
+
+Sunucuyu çalıştırın
+
+```bash
+    flask run
+```
+
+Testleri çalıştırın
+
+```bash
+    flask run tests
+```
+
+  
+## Dizin Yapısı
 
 ```
 burgerzilla
 ├─ .env
-├─ .git
 ├─ .gitignore
 ├─ README.md
 ├─ YemekSepeti.postman_collection.json
@@ -47,6 +97,8 @@ burgerzilla
 │  │  └─ user.py
 │  └─ utils.py
 ├─ config.py
+├─ constants
+│  └─ texts.py
 ├─ defaults.txt
 ├─ requirements.txt
 ├─ runservice.py
@@ -64,3 +116,4 @@ burgerzilla
       └─ common.py
 
 ```
+  

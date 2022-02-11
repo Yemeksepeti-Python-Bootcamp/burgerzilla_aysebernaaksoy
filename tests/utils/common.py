@@ -1,4 +1,4 @@
-# Commonly used test case functions.
+# Commonly used test case functions
 import json
 
 

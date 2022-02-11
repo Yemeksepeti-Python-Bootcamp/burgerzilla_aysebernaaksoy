@@ -1,3 +1,5 @@
+# Helper methods for customer services
+
 def load_restaurant_data(restaurant_db_obj):
     from app.models.schemas import RestaurantSchema
     restaurant_schema = RestaurantSchema()

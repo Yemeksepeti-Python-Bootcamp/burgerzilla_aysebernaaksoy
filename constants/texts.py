@@ -1,3 +1,4 @@
+# Custom messages and texts
 class Texts:
 
     # Descriptions

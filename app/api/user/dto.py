@@ -1,3 +1,5 @@
+# Data Transfer Objects for user 
+
 from flask_restx import Namespace, fields
 
 class UserDto:

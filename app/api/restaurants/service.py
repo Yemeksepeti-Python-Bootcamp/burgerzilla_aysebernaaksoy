@@ -1,3 +1,5 @@
+# Restaurant Services
+
 from flask import current_app
 from app.models.schemas import RestaurantSchema, MenuSchema, ProductSchema, OrderSchema
 
@@ -13,7 +15,7 @@ from app import db
 
 class RestaurantService:
     @staticmethod
-    def get_restaurant(restaurant_id):
+    def get_restaurant(restaurant_id: int):
         """
         Get a restaurant by id"""
         if not (restaurant := Restaurant.query.get(restaurant_id)):
@@ -29,7 +31,7 @@ class RestaurantService:
             return internal_err_resp()
 
     @staticmethod
-    def delete_restaurant(restaurant_id):
+    def delete_restaurant(restaurant_id: int):
         """
         Delete a restaurant by id"""
         if not (restaurant := Restaurant.query.get(restaurant_id)):
@@ -43,7 +45,7 @@ class RestaurantService:
             return internal_err_resp()
 
     @staticmethod
-    def insert_restaurant(user_id,restaurant_data):
+    def insert_restaurant(user_id: int,restaurant_data):
         """
         Insert a new restaurant"""
         try:
@@ -57,7 +59,7 @@ class RestaurantService:
             return internal_err_resp()
 
     @staticmethod
-    def update_restaurant(restaurant_id,restaurant_data):
+    def update_restaurant(restaurant_id: int,restaurant_data):
         """
         update a restaurant"""
         if not (restaurant:=Restaurant.query.get(restaurant_id)):
@@ -71,7 +73,7 @@ class RestaurantService:
             return internal_err_resp()
         
     @staticmethod
-    def get_restaurants(user_id):
+    def get_restaurants(user_id: int):
         """
         Get all restaurants of a specific user"""
         if not(restaurants := Restaurant.query.filter_by(user_id=user_id)):
@@ -118,7 +120,7 @@ class RestaurantService:
             return internal_err_resp()
 
     @staticmethod
-    def update_menu(menu_id,menu_data):
+    def update_menu(menu_id: int,menu_data):
         """
         update a menu"""
         if not (menu:=Menu.query.get(menu_id)):
@@ -132,7 +134,7 @@ class RestaurantService:
             return internal_err_resp()
 
     @staticmethod
-    def get_products(menu_id):
+    def get_products(menu_id: int):
         """
         Get all products of a specific menu"""
         if not(products := Product.query.filter_by(menu_id=menu_id)):
@@ -148,9 +150,9 @@ class RestaurantService:
             return internal_err_resp()
 
     @staticmethod
-    def get_product(product_id):
+    def get_product(product_id: int):
         """
-        get a product by id"""
+        Get a product by id"""
         if not (product := Product.query.get(product_id)):
             return err_resp(message=Texts.PRODUCT_NOT_FOUND_ERR,status=400)
         from .utils import load_product_data
@@ -164,7 +166,7 @@ class RestaurantService:
             return internal_err_resp()
 
     @staticmethod
-    def insert_product(product_data, menu_id):
+    def insert_product(product_data, menu_id: int):
         """
         Insert a new product"""
         try:
@@ -177,7 +179,7 @@ class RestaurantService:
             return internal_err_resp()
 
     @staticmethod
-    def update_product(product_id,product_data):
+    def update_product(product_id: int,product_data):
         """
         Update a product"""
         if not (product:=Product.query.get(product_id)):
@@ -191,7 +193,7 @@ class RestaurantService:
             return internal_err_resp()
 
     @staticmethod
-    def delete_product(product_id):
+    def delete_product(product_id: int):
         """
         Delete a product by id"""
         if not (product := Product.query.get(product_id)):
@@ -224,7 +226,7 @@ class RestaurantService:
             return internal_err_resp()
 
     @staticmethod
-    def delete_order(order_id):
+    def delete_order(order_id: int):
         """
         Delete a order by id"""
         if not (order := Order.query.get(order_id)):
@@ -239,9 +241,9 @@ class RestaurantService:
             return internal_err_resp()
 
     @staticmethod
-    def get_order(order_id):
+    def get_order(order_id: int):
         """
-        get an order by id"""
+        Get an order by id"""
         if not (order := Order.query.get(order_id)):
             return err_resp(message=Texts.ORDER_NOT_FOUND_ERR,status=400)
         from .utils import load_order_data, load_order_detail_data
@@ -259,7 +261,7 @@ class RestaurantService:
             return internal_err_resp()
 
     @staticmethod
-    def update_order(order_id,order_data):
+    def update_order(order_id: int,order_data):
         """
         update an order"""
         if not (order:=Order.query.get(order_id)):

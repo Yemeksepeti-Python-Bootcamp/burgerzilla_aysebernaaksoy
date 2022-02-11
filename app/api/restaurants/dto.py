@@ -1,3 +1,5 @@
+# Data Transfer Objects for restaurant services
+
 from flask_restx import Namespace,fields
 from constants.texts import Texts
 class RestaurantDto:

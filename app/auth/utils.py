@@ -1,3 +1,5 @@
+# Helper methods for authorization
+
 from marshmallow import Schema, fields
 from marshmallow.validate import Regexp, Length
 

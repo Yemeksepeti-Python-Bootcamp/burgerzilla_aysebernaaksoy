@@ -1,3 +1,5 @@
+# Helper methods for restaurant services
+
 from app.models.product import Product
 from app.models.schemas import ProductSchema
 

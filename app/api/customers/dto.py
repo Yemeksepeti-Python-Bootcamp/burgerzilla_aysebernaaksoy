@@ -1,3 +1,5 @@
+# Data Transfer Objects for customer services
+
 from flask_restx import Namespace,fields
 from constants.texts import Texts
 class CustomerDto:

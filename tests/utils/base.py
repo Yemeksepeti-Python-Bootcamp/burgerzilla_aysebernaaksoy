@@ -1,6 +1,7 @@
+# Base class for test
+
 import unittest
 from app import db, create_app
-
 
 class BaseTestCase(unittest.TestCase):
     def setUp(self):

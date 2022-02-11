@@ -1,3 +1,5 @@
+# Customer Services
+
 from flask import current_app
 from app.models.schemas import OrderSchema, OrderDetailSchema
 
@@ -28,7 +30,7 @@ class CustomerService:
             return internal_err_resp()
 
     @staticmethod
-    def delete_order(order_id):
+    def delete_order(order_id: int):
         """
         Delete a order by id"""
         if not (order := Order.query.get(order_id)):
@@ -43,7 +45,7 @@ class CustomerService:
             return internal_err_resp()
 
     @staticmethod
-    def insert_order(restaurant_id,order_data):
+    def insert_order(restaurant_id: int,order_data):
         """
         Insert a new order"""
         try:
@@ -65,7 +67,7 @@ class CustomerService:
             return internal_err_resp()
     
     @staticmethod
-    def get_order(order_id):
+    def get_order(order_id: int):
         """
         Get an order by id"""
         if not (order := Order.query.get(order_id)):
@@ -85,7 +87,7 @@ class CustomerService:
             return internal_err_resp()
 
     @staticmethod
-    def update_order(order_id,order_data):
+    def update_order(order_id: int,order_data):
         """
         update an order"""
         if not (order:=Order.query.get(order_id)):

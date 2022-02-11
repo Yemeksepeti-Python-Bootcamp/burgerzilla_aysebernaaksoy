@@ -1,3 +1,5 @@
+# Helper methods
+
 def message(status, message):
     return {
         "status": status,

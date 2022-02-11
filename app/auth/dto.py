@@ -1,3 +1,5 @@
+# Data Transfer Objects for authorization services
+
 from flask_restx import Namespace, fields
 
 class AuthDto:
