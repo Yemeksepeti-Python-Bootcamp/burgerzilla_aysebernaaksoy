@@ -18,30 +18,9 @@ class Order(Resource):
         """
         Get all order of a specific customer"""
         return CustomerService.get_orders()
-    
-#     @api.doc("Delete a specific customer",responses={
-#         200:"Success"})
-#     @jwt_required()
-#     def delete(self,restaurant_id):
-#         """ Delete a specific restaurant"""
-#         return RestaurantService.delete_restaurant(restaurant_id)
-
-#     @api.doc("Update a specific restaurant",responses={200:"Success"})
-#     @api.expect(restaurant)
-#     @jwt_required()
-#     def put(self,restaurant_id):
-#         """ Update a specific restaurant"""
-#         data = request.get_json()
-#         return RestaurantService.update_restaurant(restaurant_id,data)
 
 @api.route("/order/restaurant/<int:restaurant_id>")
 class OrderRestaurantList(Resource):
-#     @api.doc("Get all restaurant of a specific user",responses={200:"Success",500:"Internal Server Error"})
-#     @jwt_required()
-#     def get(self,user_id):
-#         """
-#         Get all restaurant of a specific user"""
-#         return RestaurantService.get_restaurants(user_id)
 
     @api.doc("Create a new order",responses={200:"Success",500:"Internal Server Error"})
     @api.expect(order)
@@ -68,3 +47,11 @@ class OrderList(Resource):
     def delete(self,order_id):
         """ Delete a specific order"""
         return CustomerService.delete_order(order_id)
+    
+    @api.doc("Update a specific order",responses={200:"Success"})
+    @api.expect(order)
+    @jwt_required()
+    def put(self,order_id):
+        """ Update a specific order"""
+        data = request.get_json()
+        return CustomerService.update_order(order_id,data)

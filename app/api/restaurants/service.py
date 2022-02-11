@@ -204,3 +204,71 @@ class RestaurantService:
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()
+
+
+    @staticmethod
+    def get_orders():
+        """
+        Get all order of a specific restaurant"""
+        current_user = get_jwt_identity()
+
+        if not(orders := Order.query.filter_by(user_id=current_user)):
+            return err_resp(message="orders not found",status=400)
+        from .utils import load_order_data
+        try:
+            orders_data = [load_order_data(order) for order in orders]
+            resp=message(True,"orders loaded successfully")
+            resp["orders"]=orders_data
+            return resp,200
+        except Exception as e:
+            current_app.logger.error(e)
+            return internal_err_resp()
+
+    @staticmethod
+    def delete_order(order_id):
+        """
+        Delete a order by id"""
+        if not (order := Order.query.get(order_id)):
+            return err_resp(message="order not found",status=400)
+        try:
+            # Deleted with order detail
+            db.session.delete(order)
+            db.session.commit()
+            return message(True,"order deleted successfully")
+        except Exception as e:
+            current_app.logger.error(e)
+            return internal_err_resp()
+
+    @staticmethod
+    def get_order(order_id):
+        """
+        get an order by id"""
+        if not (order := Order.query.get(order_id)):
+            return err_resp(message="order not found",status=400)
+        from .utils import load_order_data, load_order_detail_data
+        try:
+            order_detail = order.items
+            detail = [load_order_detail_data(item) for item in order_detail]
+            order_data = load_order_data(order)
+            # Added items in order
+            order_data['items'] = detail
+            resp=message(True,"order loaded successfully")
+            resp["order"]=order_data
+            return resp,200
+        except Exception as e:
+            current_app.logger.error(e)
+            return internal_err_resp()
+
+    @staticmethod
+    def update_order(order_id,order_data):
+        """
+        update an order"""
+        if not (order:=Order.query.get(order_id)):
+            return err_resp(message="order not found",status=400)
+        try:
+            Order.query.filter_by(id=order_id).update(order_data)
+            db.session.commit()
+            return message(True,"order updated successfully")
+        except Exception as e:
+            current_app.logger.error(e)
+            return internal_err_resp()

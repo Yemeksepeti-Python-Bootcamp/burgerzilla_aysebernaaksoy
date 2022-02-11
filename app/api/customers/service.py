@@ -37,7 +37,7 @@ class CustomerService:
             # Deleted with order detail
             db.session.delete(order)
             db.session.commit()
-            return message(True,"restaurant deleted successfully")
+            return message(True,"order deleted successfully")
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()
@@ -63,36 +63,6 @@ class CustomerService:
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()
-
-    # @staticmethod
-    # def update_restaurant(restaurant_id,restaurant_data):
-    #     """
-    #     update a restaurant"""
-    #     if not (restaurant:=Restaurant.query.get(restaurant_id)):
-    #         return err_resp(message="restaurant not found",status=400)
-    #     try:
-    #         Restaurant.query.filter_by(id=restaurant_id).update(restaurant_data)
-    #         db.session.commit()
-    #         return message(True,"restaurant updated successfully")
-    #     except Exception as e:
-    #         current_app.logger.error(e)
-    #         return internal_err_resp()
-        
-    # @staticmethod
-    # def get_restaurants(user_id):
-    #     """
-    #     Get all restaurants of a specific user"""
-    #     if not(restaurants := Restaurant.query.filter_by(user_id=user_id)):
-    #         return err_resp(message="restaurants not found",status=400)
-    #     from .utils import load_restaurant_data
-    #     try:
-    #         restaurants_data = [load_restaurant_data(restaurant) for restaurant in restaurants]
-    #         resp=message(True,"restaurants loaded successfully")
-    #         resp["restaurants"]=restaurants_data
-    #         return resp,200
-    #     except Exception as e:
-    #         current_app.logger.error(e)
-    #         return internal_err_resp()
     
     @staticmethod
     def get_order(order_id):
@@ -103,7 +73,7 @@ class CustomerService:
         from .utils import load_order_data, load_order_detail_data
         try:
             order_detail = order.items
-            detail = load_order_detail_data(order_detail[0])
+            detail = [load_order_detail_data(item) for item in order_detail]
             order_data = load_order_data(order)
             # Added items in order
             order_data['items'] = detail
@@ -114,15 +84,16 @@ class CustomerService:
             current_app.logger.error(e)
             return internal_err_resp()
 
-    # @staticmethod
-    # def insert_menu(restaurant_id,menu_data):
-    #     """
-    #     Insert a new menu"""
-    #     try:
-    #         menu = Menu(name=menu_data["name"],detailed_info=menu_data["detailed_info"],price=menu_data["price"],image_url=menu_data["image_url"],restaurant_id=restaurant_id)
-    #         db.session.add(menu)
-    #         db.session.commit()
-    #         return message(True,"menu created successfully")
-    #     except Exception as e:
-    #         current_app.logger.error(e)
-    #         return internal_err_resp()
+    @staticmethod
+    def update_order(order_id,order_data):
+        """
+        update an order"""
+        if not (order:=Order.query.get(order_id)):
+            return err_resp(message="order not found",status=400)
+        try:
+            Order.query.filter_by(id=order_id).update(order_data)
+            db.session.commit()
+            return message(True,"order updated successfully")
+        except Exception as e:
+            current_app.logger.error(e)
+            return internal_err_resp()

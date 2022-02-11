@@ -12,6 +12,7 @@ restaurant_list_resp=RestaurantDto.restaurant_list_resp
 menu=RestaurantDto.menu
 product=RestaurantDto.product
 product_resp=RestaurantDto.product_resp
+order=RestaurantDto.order
 
 @api.route('/<int:restaurant_id>')
 class Restaurant(Resource):
@@ -131,3 +132,36 @@ class Product(Resource):
     def delete(self,product_id):
         """ Delete a specific product"""
         return RestaurantService.delete_product(product_id)
+
+@api.route('/order')
+class Order(Resource):
+    @api.doc("Get all order of a specific customer",responses={200:"Success",500:"Internal Server Error"})
+    @jwt_required()
+    def get(self):
+        """
+        Get all order of a specific customer"""
+        return RestaurantService.get_orders()
+@api.route("/order/<int:order_id>")
+# TODO:Giren kullanıcının id si restaurant id si ise o zaman işlemler yapılsın
+class OrderList(Resource):
+    @api.doc("Get an order for a specific user",responses={200:"Success",500:"Internal Server Error"})
+    @jwt_required()
+    def get(self,order_id):
+        """
+        Get an order"""
+        return RestaurantService.get_order(order_id)
+
+    @api.doc("Delete a specific order",responses={
+        200:"Success"})
+    @jwt_required()
+    def delete(self,order_id):
+        """ Delete a specific order"""
+        return RestaurantService.delete_order(order_id)
+    
+    @api.doc("Update a specific order",responses={200:"Success"})
+    @api.expect(order)
+    @jwt_required()
+    def put(self,order_id):
+        """ Update a specific order"""
+        data = request.get_json()
+        return RestaurantService.update_order(order_id,data)
