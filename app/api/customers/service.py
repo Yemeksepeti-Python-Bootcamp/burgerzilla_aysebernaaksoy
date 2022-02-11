@@ -5,8 +5,8 @@ from app.utils import err_resp,internal_err_resp,message
 from flask_jwt_extended import get_jwt_identity
 from app.models.order import Order
 from app.models.order_detail import OrderDetail
+from constants.texts import Texts
 
-from app.models.menu import Menu
 from app import db
 
 class CustomerService:
@@ -16,11 +16,11 @@ class CustomerService:
         get all orders"""
         current_user = get_jwt_identity()
         if not (orders := Order.query.filter_by(user_id=current_user)):
-            return err_resp(message="order not found",status=400)
+            return err_resp(message=Texts.ORDER_NOT_FOUND_ERR,status=400)
         from .utils import load_order_data
         try:
             order_data = [load_order_data(order) for order in orders]
-            resp=message(True,"orders loaded successfully")
+            resp=message(True,Texts.ORDERS_SUCCESS)
             resp["order"]=order_data
             return resp,200
         except Exception as e:
@@ -32,12 +32,12 @@ class CustomerService:
         """
         Delete a order by id"""
         if not (order := Order.query.get(order_id)):
-            return err_resp(message="order not found",status=400)
+            return err_resp(message=Texts.ORDER_NOT_FOUND_ERR,status=400)
         try:
             # Deleted with order detail
             db.session.delete(order)
             db.session.commit()
-            return message(True,"order deleted successfully")
+            return message(True,Texts.ORDER_DELETE_SUCCESS)
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()
@@ -45,7 +45,7 @@ class CustomerService:
     @staticmethod
     def insert_order(restaurant_id,order_data):
         """
-        Insert a new restaurant"""
+        Insert a new order"""
         try:
             current_user = get_jwt_identity()
             # Firstly create an order
@@ -59,7 +59,7 @@ class CustomerService:
             db.session.add(order)
             db.session.commit()
 
-            return message(True,"restaurant created successfully")
+            return message(True,Texts.ORDER_CREATE_SUCCESS)
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()
@@ -67,9 +67,9 @@ class CustomerService:
     @staticmethod
     def get_order(order_id):
         """
-        get an order by id"""
+        Get an order by id"""
         if not (order := Order.query.get(order_id)):
-            return err_resp(message="order not found",status=400)
+            return err_resp(message=Texts.ORDER_NOT_FOUND_ERR,status=400)
         from .utils import load_order_data, load_order_detail_data
         try:
             order_detail = order.items
@@ -77,7 +77,7 @@ class CustomerService:
             order_data = load_order_data(order)
             # Added items in order
             order_data['items'] = detail
-            resp=message(True,"order loaded successfully")
+            resp=message(True,Texts.ORDERS_SUCCESS)
             resp["order"]=order_data
             return resp,200
         except Exception as e:
@@ -89,11 +89,11 @@ class CustomerService:
         """
         update an order"""
         if not (order:=Order.query.get(order_id)):
-            return err_resp(message="order not found",status=400)
+            return err_resp(message=Texts.ORDER_NOT_FOUND_ERR,status=400)
         try:
             Order.query.filter_by(id=order_id).update(order_data)
             db.session.commit()
-            return message(True,"order updated successfully")
+            return message(True,Texts.ORDER_UPDATE_SUCCESS)
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()

@@ -1,8 +1,5 @@
 from flask import current_app
-from app.models.schemas import RestaurantSchema
-from app.models.schemas import MenuSchema
-from app.models.schemas import ProductSchema
-from app.models.schemas import OrderSchema
+from app.models.schemas import RestaurantSchema, MenuSchema, ProductSchema, OrderSchema
 
 from app.utils import err_resp,internal_err_resp,message
 from flask_jwt_extended import get_jwt_identity
@@ -10,19 +7,21 @@ from app.models.restaurant import Restaurant
 from app.models.menu import Menu
 from app.models.product import Product
 from app.models.order import Order
+from constants.texts import Texts
+
 from app import db
 
 class RestaurantService:
     @staticmethod
     def get_restaurant(restaurant_id):
         """
-        get a restaurant by id"""
+        Get a restaurant by id"""
         if not (restaurant := Restaurant.query.get(restaurant_id)):
-            return err_resp(message="restaurant not found",status=400)
+            return err_resp(message=Texts.RESTAURANT_NOT_FOUND_ERR,status=400)
         from .utils import load_restaurant_data
         try:
             restaurant_data = load_restaurant_data(restaurant)
-            resp=message(True,"restaurant loaded successfully")
+            resp=message(True,Texts.RESTAURANTS_SUCCESS)
             resp["restaurant"]=restaurant_data
             return resp,200
         except Exception as e:
@@ -34,11 +33,11 @@ class RestaurantService:
         """
         Delete a restaurant by id"""
         if not (restaurant := Restaurant.query.get(restaurant_id)):
-            return err_resp(message="restaurant not found",status=400)
+            return err_resp(message=Texts.RESTAURANT_NOT_FOUND_ERR,status=400)
         try:
             db.session.delete(restaurant)
             db.session.commit()
-            return message(True,"restaurant deleted successfully")
+            return message(True,Texts.RESTAURANT_DELETE_SUCCESS)
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()
@@ -52,7 +51,7 @@ class RestaurantService:
             restaurant = Restaurant(name=restaurant_data["name"],user_id=current_user)
             db.session.add(restaurant)
             db.session.commit()
-            return message(True,"restaurant created successfully")
+            return message(True,Texts.RESTAURANT_CREATE_SUCCESS)
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()
@@ -62,11 +61,11 @@ class RestaurantService:
         """
         update a restaurant"""
         if not (restaurant:=Restaurant.query.get(restaurant_id)):
-            return err_resp(message="restaurant not found",status=400)
+            return err_resp(message=Texts.RESTAURANT_NOT_FOUND_ERR,status=400)
         try:
             Restaurant.query.filter_by(id=restaurant_id).update(restaurant_data)
             db.session.commit()
-            return message(True,"restaurant updated successfully")
+            return message(True,Texts.RESTAURANT_UPDATE_SUCCESS)
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()
@@ -76,11 +75,11 @@ class RestaurantService:
         """
         Get all restaurants of a specific user"""
         if not(restaurants := Restaurant.query.filter_by(user_id=user_id)):
-            return err_resp(message="restaurants not found",status=400)
+            return err_resp(message=Texts.RESTAURANT_NOT_FOUND_ERR,status=400)
         from .utils import load_restaurant_data
         try:
             restaurants_data = [load_restaurant_data(restaurant) for restaurant in restaurants]
-            resp=message(True,"restaurants loaded successfully")
+            resp=message(True,Texts.RESTAURANTS_SUCCESS)
             resp["restaurants"]=restaurants_data
             return resp,200
         except Exception as e:
@@ -93,11 +92,11 @@ class RestaurantService:
         get a menu by id"""
         current_user = get_jwt_identity()
         if not (menu := Menu.query.get(current_user)):
-            return err_resp(message="menu not found",status=400)
+            return err_resp(message=Texts.MENU_NOT_FOUND_ERR,status=400)
         from .utils import load_menu_data
         try:
             menu_data = load_menu_data(menu)
-            resp=message(True,"menu loaded successfully")
+            resp=message(True,Texts.MENU_SUCCESS)
             resp["menu"]=menu_data
             return resp,200
         except Exception as e:
@@ -113,7 +112,7 @@ class RestaurantService:
             menu = Menu(name=menu_data["name"],restaurant_id=current_user)
             db.session.add(menu)
             db.session.commit()
-            return message(True,"menu created successfully")
+            return message(True,Texts.MENU_CREATE_SUCCESS)
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()
@@ -123,11 +122,11 @@ class RestaurantService:
         """
         update a menu"""
         if not (menu:=Menu.query.get(menu_id)):
-            return err_resp(message="menu not found",status=400)
+            return err_resp(message=Texts.MENU_NOT_FOUND_ERR,status=400)
         try:
             Menu.query.filter_by(id=menu_id).update(menu_data)
             db.session.commit()
-            return message(True,"menu updated successfully")
+            return message(True,Texts.MENU_UPDATE_SUCCESS)
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()
@@ -137,11 +136,11 @@ class RestaurantService:
         """
         Get all products of a specific menu"""
         if not(products := Product.query.filter_by(menu_id=menu_id)):
-            return err_resp(message="restaurants not found",status=400)
+            return err_resp(message=Texts.PRODUCT_NOT_FOUND_ERR,status=400)
         from .utils import load_product_data
         try:
             products_data = [load_product_data(product) for product in products]
-            resp=message(True,"restaurants loaded successfully")
+            resp=message(True,Texts.PRODUCT_SUCCESS)
             resp["products"]=products_data
             return resp,200
         except Exception as e:
@@ -153,11 +152,11 @@ class RestaurantService:
         """
         get a product by id"""
         if not (product := Product.query.get(product_id)):
-            return err_resp(message="product not found",status=400)
+            return err_resp(message=Texts.PRODUCT_NOT_FOUND_ERR,status=400)
         from .utils import load_product_data
         try:
             product_data = load_product_data(product)
-            resp=message(True,"product loaded successfully")
+            resp=message(True,Texts.PRODUCT_SUCCESS)
             resp["product"]=product_data
             return resp,200
         except Exception as e:
@@ -172,7 +171,7 @@ class RestaurantService:
             product = Product(name=product_data["name"],detailed_info=product_data["detailed_info"],price=product_data["price"],image_url=product_data["image_url"],menu_id=menu_id)
             db.session.add(product)
             db.session.commit()
-            return message(True,"product created successfully")
+            return message(True,Texts.PRODUCT_CREATE_SUCCESS)
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()
@@ -182,11 +181,11 @@ class RestaurantService:
         """
         Update a product"""
         if not (product:=Product.query.get(product_id)):
-            return err_resp(message="product not found",status=400)
+            return err_resp(message=Texts.PRODUCT_NOT_FOUND_ERR,status=400)
         try:
             Product.query.filter_by(id=product_id).update(product_data)
             db.session.commit()
-            return message(True,"product updated successfully")
+            return message(True,Texts.PRODUCT_UPDATE_SUCCESS)
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()
@@ -196,11 +195,11 @@ class RestaurantService:
         """
         Delete a product by id"""
         if not (product := Product.query.get(product_id)):
-            return err_resp(message="product not found",status=400)
+            return err_resp(message=Texts.PRODUCT_NOT_FOUND_ERR,status=400)
         try:
             db.session.delete(product)
             db.session.commit()
-            return message(True,"product deleted successfully")
+            return message(True,Texts.PRODUCT_DELETE_SUCCESS)
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()
@@ -213,11 +212,11 @@ class RestaurantService:
         current_user = get_jwt_identity()
 
         if not(orders := Order.query.filter_by(user_id=current_user)):
-            return err_resp(message="orders not found",status=400)
+            return err_resp(message=Texts.ORDER_NOT_FOUND_ERR,status=400)
         from .utils import load_order_data
         try:
             orders_data = [load_order_data(order) for order in orders]
-            resp=message(True,"orders loaded successfully")
+            resp=message(True,Texts.ORDERS_SUCCESS)
             resp["orders"]=orders_data
             return resp,200
         except Exception as e:
@@ -229,12 +228,12 @@ class RestaurantService:
         """
         Delete a order by id"""
         if not (order := Order.query.get(order_id)):
-            return err_resp(message="order not found",status=400)
+            return err_resp(message=Texts.ORDER_NOT_FOUND_ERR,status=400)
         try:
             # Deleted with order detail
             db.session.delete(order)
             db.session.commit()
-            return message(True,"order deleted successfully")
+            return message(True,Texts.ORDER_DELETE_SUCCESS)
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()
@@ -244,7 +243,7 @@ class RestaurantService:
         """
         get an order by id"""
         if not (order := Order.query.get(order_id)):
-            return err_resp(message="order not found",status=400)
+            return err_resp(message=Texts.ORDER_NOT_FOUND_ERR,status=400)
         from .utils import load_order_data, load_order_detail_data
         try:
             order_detail = order.items
@@ -252,7 +251,7 @@ class RestaurantService:
             order_data = load_order_data(order)
             # Added items in order
             order_data['items'] = detail
-            resp=message(True,"order loaded successfully")
+            resp=message(True,Texts.ORDERS_SUCCESS)
             resp["order"]=order_data
             return resp,200
         except Exception as e:
@@ -264,11 +263,11 @@ class RestaurantService:
         """
         update an order"""
         if not (order:=Order.query.get(order_id)):
-            return err_resp(message="order not found",status=400)
+            return err_resp(message=Texts.ORDER_NOT_FOUND_ERR,status=400)
         try:
             Order.query.filter_by(id=order_id).update(order_data)
             db.session.commit()
-            return message(True,"order updated successfully")
+            return message(True,Texts.ORDER_UPDATE_SUCCESS)
         except Exception as e:
             current_app.logger.error(e)
             return internal_err_resp()
