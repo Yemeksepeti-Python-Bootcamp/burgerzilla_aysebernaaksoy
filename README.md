@@ -47,6 +47,9 @@ Testleri çalıştırın
 ```bash
     flask run tests
 ```
+## Veri tabanı şeması
+
+![Burgerzilla_models](https://user-images.githubusercontent.com/4121960/153591356-b0bf3db6-35c2-46b2-b4c8-9733ee1e3f92.png)
 
   
 ## Dizin Yapısı
