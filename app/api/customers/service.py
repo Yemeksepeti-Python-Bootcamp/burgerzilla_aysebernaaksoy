@@ -5,7 +5,7 @@ from app.models.schemas import OrderSchema, OrderDetailSchema
 
 from app.utils import err_resp,internal_err_resp,message
 from flask_jwt_extended import get_jwt_identity
-from app.models.order import Order
+from app.models.order import Order, OrderStatus
 from app.models.order_detail import OrderDetail
 from constants.texts import Texts
 
@@ -77,6 +77,8 @@ class CustomerService:
             order_detail = order.items
             detail = [load_order_detail_data(item) for item in order_detail]
             order_data = load_order_data(order)
+            status= order.to_json()['status'].value
+            order_data['status'] = status
             # Added items in order
             order_data['items'] = detail
             resp=message(True,Texts.ORDERS_SUCCESS)

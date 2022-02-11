@@ -737,16 +737,16 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY0NDU2MTcyNywianRpIjoiNThmMjZkMWMtZDU3ZC00NmZkLWI3YWUtZmJmMGVkZDE4MzU5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjQ0NTYxNzI3LCJleHAiOjE2NDUxNjY1Mjd9.-DDrxrj_ZOye-H9ZpEPuwyFLsxQ65gvauofoC6M91Q8",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY0NDU4ODQxOSwianRpIjoiNTA5OGFlYzMtM2UwOS00YTFlLWFkZTktYTA1ZTA4NWYwZjAxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjQ0NTg4NDE5LCJleHAiOjE2NDUxOTMyMTl9.oDtuw55uZKQOMnEoPEqbRG0c_gNEdff4Vcb98Aew08w",
 									"type": "string"
 								}
 							]
 						},
-						"method": "PUT",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{   \n    \"status\": \"Hazırlanıyor\"\n}",
+							"raw": "{   \"no\": \"A0009\",\n    \"items\":{\n        \"product_id\": 1,\n        \"quantity\":\"2\"\n    },\n    \"status\": \"YENI\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -815,7 +815,7 @@
 					"response": []
 				},
 				{
-					"name": "Get orders for customer",
+					"name": "Get an order for customer",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -842,7 +842,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/customers/order",
+							"raw": "http://localhost:5000/api/customers/order/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -851,7 +851,8 @@
 							"path": [
 								"api",
 								"customers",
-								"order"
+								"order",
+								"5"
 							]
 						}
 					},
