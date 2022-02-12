@@ -2,12 +2,12 @@ version: '3.9'
 
 services:
   web:
-    container_name: burgerzilla
-    image: burgerzilla
+    container_name: burgerzillalatest
+    image: burgerzillalatest
     ports:
       - "5000:5000"
     environment:
-      - DATABASE_URL=postgresql+psycopg2://postgres:12345678@localhost:5432/burgerzilla
+      - DATABASE_URL=postgresql://postgres:12345678@db:5432/burgerzilla
     depends_on:
       - db
   db:

@@ -29,8 +29,8 @@ def create_app(config_name):
 
     app.register_blueprint(api_bp, url_prefix="/api")
 
-    # If app.debug is False you can get logs 
-    if not app.debug:
+    # If app is not on debug mode, you can get logs 
+    if app.debug:
         if not os.path.exists('logs'):
             os.mkdir('logs')
         file_handler = RotatingFileHandler('logs/burgerzilla.log', maxBytes=10240,

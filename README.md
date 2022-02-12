@@ -100,7 +100,6 @@ burgerzilla
 │  │  └─ user.py
 │  └─ utils.py
 ├─ config.py
-├─ constants
 │  └─ texts.py
 ├─ defaults.txt
 ├─ requirements.txt

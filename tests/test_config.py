@@ -16,7 +16,7 @@ class TestDevelopmentConfig(unittest.TestCase):
         self.assertFalse(current_app is None)
         self.assertTrue(
             app.config["SQLALCHEMY_DATABASE_URI"]
-            == "postgresql+psycopg2://postgres:12345678@localhost:5432/burgerzilla"
+            == "postgresql://postgres:12345678@localhost:5432/burgerzilla"
         )
 
 

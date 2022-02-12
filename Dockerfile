@@ -1,7 +1,8 @@
-FROM python:3.10.1
+FROM python:3.10-alpine
 
 RUN apk update
 RUN apk add py-pip
+RUN apk add gcc musl-dev python3-dev libffi-dev libressl-dev cargo
 RUN pip install --upgrade pip
 
 COPY requirements.txt requirements.txt
@@ -20,5 +21,7 @@ RUN chmod +x boot.sh
 ENV FLASK_APP runservice.py
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
+
+EXPOSE 5000
 
 ENTRYPOINT ["sh","boot.sh"]
