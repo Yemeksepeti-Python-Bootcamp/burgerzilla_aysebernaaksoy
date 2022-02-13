@@ -1,7 +1,7 @@
 from datetime import datetime
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
-
+import random
 # Alias common DB names
 Column = db.Column
 Model = db.Model
@@ -104,3 +104,13 @@ class User(Model):
 
     def __repr__(self):
         return f"<User {self.username}>"
+
+    @staticmethod
+    def insert_user():
+        default_user = User(name='customer1'+str(random.randint(0,100)), username='customer1'+str(random.randint(0,100)), email='customer1@customer.com'+str(random.randint(0,100)), password='12345678')
+        db.session.add(default_user)
+        db.session.commit()
+
+        default_user = User(name='user1'+str(random.randint(0,100)), username='user1'+str(random.randint(0,100)), email='user1@user.com'+str(random.randint(0,100)), password='12345678')
+        db.session.add(default_user)
+        db.session.commit()
