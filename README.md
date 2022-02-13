@@ -143,3 +143,5 @@ burgerzilla
 
 ```
   
+  
+ ## Proje Yemeksepeti Bootcamp dersleri ve İbrahim Ediz'in oluşturdugu örnek projeler baz alınarak geliştirilmiştir.
