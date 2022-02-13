@@ -107,10 +107,10 @@ class User(Model):
 
     @staticmethod
     def insert_user():
-        default_user = User(name='customer1'+str(random.randint(0,100)), username='customer1'+str(random.randint(0,100)), email='customer1@customer.com'+str(random.randint(0,100)), password='12345678')
+        default_user = User(name='customer1', username='customer1', email='customer1@customer.com', password='12345678')
         db.session.add(default_user)
         db.session.commit()
 
-        default_user = User(name='user1'+str(random.randint(0,100)), username='user1'+str(random.randint(0,100)), email='user1@user.com'+str(random.randint(0,100)), password='12345678')
+        default_user = User(name='user1', username='user1', email='user1@user.com', password='12345678')
         db.session.add(default_user)
         db.session.commit()

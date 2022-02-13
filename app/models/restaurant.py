@@ -1,5 +1,4 @@
 from app import db
-import random
 
 class Restaurant(db.Model):
     __tablename__ = 'restaurants'
@@ -14,9 +13,9 @@ class Restaurant(db.Model):
 
     @staticmethod
     def insert_restaurant():
-        default_restaurant = Restaurant(name='Dombili '+str(random.randint(0,100)), user_id=1)
+        default_restaurant = Restaurant(name='Dombili', user_id=1)
         db.session.add(default_restaurant)
         db.session.commit()
-        default_restaurant2 = Restaurant(name='Dublemumble '+str(random.randint(0,100)), user_id=2)
+        default_restaurant2 = Restaurant(name='Dublemumble', user_id=2)
         db.session.add(default_restaurant2)
         db.session.commit()
