@@ -61,7 +61,19 @@ Testleri çalıştırın
 
 ## Dockerda Çalıştırın
 
-Dockerda projeyi oluşturun
+Projeyi klonlayın
+
+```bash
+    git clone https://github.com/aysberna/burgerzilla.git
+```
+
+Proje dizinine gidin
+
+```bash
+    cd burgerzilla
+```
+
+Docker ile projeyi build edin
 
 ```bash
     docker build -t burgerzillalatest .
