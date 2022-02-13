@@ -36,6 +36,12 @@ Gerekli paketleri yükleyin
     pip install -r requirements.txt
 ```
 
+Ön tanımlı verileri yükleyin (Kullanıcı, restoran, menu, ürünler)
+
+```bash
+    flask initialvalues
+```
+
 Sunucuyu çalıştırın
 
 ```bash
@@ -47,6 +53,24 @@ Testleri çalıştırın
 ```bash
     flask test
 ```
+
+
+## Dockerda Çalıştırın
+
+Dockerda projeyi oluşturun
+
+```bash
+    docker build -t burgerzillalatest .
+```
+
+Postgresql bağlantısı için compose yapın
+
+```bash
+    docker compose up --build web
+```
+
+Flaskın çalıştığı adresten (localhost) dökümanlara ve servislere erişebilirsiniz.
+
 ## Veri tabanı şeması
 
 ![Burgerzilla_models](https://user-images.githubusercontent.com/4121960/153591356-b0bf3db6-35c2-46b2-b4c8-9733ee1e3f92.png)
