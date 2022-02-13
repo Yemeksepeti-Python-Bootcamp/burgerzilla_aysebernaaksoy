@@ -24,7 +24,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{   \"username\": \"ayse\",\n    \"name\": \"Ayse\",\n    \"email\": \"ab@cd.com\",\n    \"password\": \"12345678\"\n}",
+							"raw": "{   \"username\": \"Deneme\",\n    \"name\": \"Test deneme\",\n    \"email\": \"aaa@aaa.com\",\n    \"password\": \"12345678\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -32,10 +32,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/auth/register",
+							"raw": "http://127.0.0.1:5000/auth/register",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"127",
+								"0",
+								"0",
+								"1"
 							],
 							"port": "5000",
 							"path": [
@@ -62,7 +65,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"aaab@cd.com\",\n    \"password\": \"12345678\"\n}",
+							"raw": "{\n    \"email\": \"customer1@customer.com\",\n    \"password\": \"12345678\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -737,7 +740,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY0NDU4ODQxOSwianRpIjoiNTA5OGFlYzMtM2UwOS00YTFlLWFkZTktYTA1ZTA4NWYwZjAxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjQ0NTg4NDE5LCJleHAiOjE2NDUxOTMyMTl9.oDtuw55uZKQOMnEoPEqbRG0c_gNEdff4Vcb98Aew08w",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY0NDU4ODc2NCwianRpIjoiNjljOGJjOTgtYzNjZS00YjAyLWI0N2MtNzg3Mzk5ZjdiZGZmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjQ0NTg4NzY0LCJleHAiOjE2NDUxOTM1NjR9.ZWJ0lhKRLWtORmSNie4cflNIEzXNaQaG5awuQ6BA5kU",
 									"type": "string"
 								}
 							]
@@ -746,7 +749,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{   \"no\": \"A0009\",\n    \"items\":{\n        \"product_id\": 1,\n        \"quantity\":\"2\"\n    },\n    \"status\": \"YENI\"\n}",
+							"raw": "{   \"no\": \"A0011\",\n    \"items\":{\n        \"product_id\": 2,\n        \"quantity\":\"2\"\n    },\n    \"status\": \"YENI\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -825,7 +828,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY0NDUyMDUyNywianRpIjoiZjFlOWUzNDktMjA3Yy00ZTQ5LTkwNGMtZDI1NjM0YWE4ODZjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjQ0NTIwNTI3LCJleHAiOjE2NDUxMjUzMjd9.ao-eK4oX9o8C4suOl5f0PI06Kgc9I8dN1Lq09Px5nG4",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY0NDU4OTg3OSwianRpIjoiYjg5OWZiM2MtOWZhZS00ZTUxLTg1OTQtZTlkMDU5NWM2NDdkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjQ0NTg5ODc5LCJleHAiOjE2NDUxOTQ2Nzl9.3zoqdHapTayICKtJN3EYflYLWwAS1QPVuaeZpjbN-NE",
 									"type": "string"
 								}
 							]
@@ -842,7 +845,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/customers/order/5",
+							"raw": "http://localhost:5000/api/customers/order/17",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -852,7 +855,7 @@
 								"api",
 								"customers",
 								"order",
-								"5"
+								"17"
 							]
 						}
 					},
