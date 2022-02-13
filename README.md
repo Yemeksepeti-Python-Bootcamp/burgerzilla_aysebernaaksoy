@@ -37,6 +37,10 @@ Gerekli paketleri yükleyin
 ```
 
 Ön tanımlı verileri yükleyin (Kullanıcı, restoran, menu, ürünler)
+user-> email: email='customer1@customer.com', 'password:12345678'
+restaoran-> email='user1@user.com', password='12345678'
+ürün-> name='Bombili burger', menu_id=1
+menü-> name='Dombili burger menu', restaurant_id='1'
 
 ```bash
     flask initialvalues
