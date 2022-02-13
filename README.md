@@ -27,7 +27,6 @@ Virtual environment oluşturun
 
 ```bash
     python -m venv env
-    . venv/bin/activate # Windows için
     source env/bin/activate # Linux-MacOS için
 ```
 Gerekli paketleri yükleyin
