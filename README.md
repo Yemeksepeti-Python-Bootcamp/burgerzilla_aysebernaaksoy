@@ -86,6 +86,12 @@ Postgresql bağlantısı için compose yapın
 
 Flaskın çalıştığı adresten (localhost) dökümanlara ve servislere erişebilirsiniz.
 
+
+## Log kayıtları için
+
+Uygulamanın çalışması esnasında ve Api'lerde hataya düşülen bir durum olduğunda ana dizinde log dosyası oluşacaktır ve burgerzilla.log isimli kayıtlar düşecektir.
+
+
 ## Veri tabanı şeması
 
 ![Burgerzilla_models](https://user-images.githubusercontent.com/4121960/153591356-b0bf3db6-35c2-46b2-b4c8-9733ee1e3f92.png)
